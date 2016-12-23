@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
+require('./models/Users');
 mongoose.connect('mongodb://localhost/news');
 
+var passport = require('passport');
+require('./config/passport');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -29,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(passport.initialize());
 app.use('/', index);
 app.use('/users', users);
 
